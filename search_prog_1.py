@@ -2,19 +2,16 @@ import re
 import sys
 import group_info_1 as f
 
-# make content groups from back cover text (takzir)
 # all the groups and words are imported from group_info_1.py
+# make content groups from back cover text (takzir)
+# write txt file
 
 # run the program in idle or pycharm etc
 # part 1 - user input
 '''
 input from user ->
 the fastest way to run the program is ->
-enter
-* enter
-copy clean takzir
-cmd d or ctrl d
-watch the results
+enter -> * enter -> copy clean takzir -> cmd d or ctrl d -> watch the results
 '''
 book_name=input("book name (optional, enter its ok) ->")
 print("-------")
@@ -42,6 +39,10 @@ print(book_name)
 print(text)
 print("-------")
 
+# for info.txt
+text_result=[]
+sign= " ->- "
+
 # part 2 - find words
 # choose on what category to run from all_groups list  ->
 # then run over the category group (holder) and find words in keys values with re.search()
@@ -67,18 +68,48 @@ for groupi in f.all_groups_str:
                         k_search = re.search(rf"{key}", line)
                         if k_search:
                             print(group_to_print, ": ", k_search.group(), " - ", key)
-                            # print(k_search.group()," - ", key)
+
+                            text_result.append(group_to_print)
+                            text_result.append(k_search.group())
+                            text_result.append(key)
+                            text_result.append(sign)
 
                         for valey in val:
                             val_search = re.search(rf"{valey}", line)
                             if val_search:
                                 print(group_to_print, ": ", val_search.group(), " - ", key)
-                                # print(val_search.group(), " - ", key)
 
+                                text_result.append(group_to_print)
+                                text_result.append(val_search.group())
+                                text_result.append(key)
+                                text_result.append(sign)
 
+# part 3 - write results to txt file
+f = open("info.txt", "a")
 
+f.write("\n שם הספר: \n")
+f.write(book_name)
+f.write("\n")
 
+f.write("\n התקציר: \n")
+for lines in text:
+    f.write(lines)
+f.write("\n")
 
+f.write("\n קטגוריות החיפוש: \n")
+for groupa in category:
+    f.write(groupa)
+    f.write(" ")
+f.write("\n")
+
+f.write("\n הקבוצות והמילים: \n")
+for found in text_result:
+    f.write(found)
+    f.write(" ")
+f.write("\n")
+f.write(" ------------------------------------------------------------------------------- ")
+
+f.close()
 
 
 
