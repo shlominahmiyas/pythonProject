@@ -41,7 +41,7 @@ print("-------")
 
 # for info.txt
 text_result=[]
-sign= " ->- "
+sign= "\n"
 
 # part 2 - find words
 # choose on what category to run from all_groups list  ->
