@@ -1,6 +1,5 @@
 from tkinter import *
 import re
-# import sys
 import group_info_1 as data
 
 # all the groups and words are imported from group_info_1.py
@@ -13,25 +12,18 @@ import group_info_1 as data
 
 def user_input_tk():
     # input from human user with tk, return text, book_name, category
+    # calls functions write_file and where_to_run
 
     category_l = []
-    space = " "
-    n_line = " \n "
     textim = []
     book_name = book_entry.get()
     category = category_entry.get()
     category_l.append(category)
     text = text_entry.get(1.0, END)
     textim.append(text)
-    # print(text)
-    # print(textim)
-    # printer = str(book_name + space + category_l + n_line + text)
 
-    # output.insert(END,  printer)
+    write_file(book_name, category_l, textim)
     text_results = where_to_run(textim, category_l)
-    write_file_2(text_results)
-    # print(text_results)
-    # print(book_name, category_l, textim, text_results)
 
     return book_name, category_l, textim, text_results
 
@@ -70,7 +62,7 @@ def where_to_run(text, category):
 def search_words(text, holder, group_to_print):
     # search in text variable, find words from chosen data.all_groups list and dictionary (holder) ->
     # use re.search, take keys values items() as variable to find -> print result and write to a file
-    # for info.txt
+    # for info2.txt
     text_result = []
     sign = "\n"
     # the actual code - finds the words
@@ -105,8 +97,8 @@ def search_words(text, holder, group_to_print):
 # part 3 - write results to txt file
 
 
-def write_file(text, category, book_name):
-    # basic info - this version ignore this
+def write_file(book_name, category, text):
+    # basic info -
     f = open("info2.txt", "a")
 
     f.write("\n שם הספר: \n")
@@ -131,15 +123,17 @@ def write_file_2(final_results):
     # the words who where found in text
     # output words to screen
     f = open("info2.txt", "a")
-
+    strings = " "
     for found in final_results:
         f.write(found)
         f.write(" ")
-        strings = " "
-        strings += str(found)
-        output.insert(END, strings)
+
+        to_print = strings + str(found)
+        output.insert(END, to_print)
+
     f.write("\n")
     f.close()
+
 
 # tkinter gui
 
@@ -153,11 +147,13 @@ label_2 = Label(window, text="קטגוריה") .grid(row=2, column=0)
 category_entry = Entry(window)
 category_entry.grid(row=3, column=0)
 label_3 = Label(window, text="תקציר") .grid(row=4, column=0)
-text_entry = Text(window, bg="light gray")
+text_entry = Text(window, height=16, bg="light gray")
 text_entry.grid(row=5, column=0)
-button_1 = Button(window, text="חפש", command=user_input_tk) .grid(row=6, column=0)
+button_1 = Button(window, text="חפש", command=user_input_tk) .grid(row=6, column=0, pady=3)
 button_2 = Button(window, text="נקה", command=clean) .grid(row=7, column=0)
-output = Text(window, wrap=WORD,  bg="light grey")
+label_4 = Label(window, text="תוצאות") .grid(row=8, column=0)
+output = Text(window, wrap=WORD, height=16,  bg="light grey")
 output.grid(row=9, column=0)
+
 window.mainloop()
-# width=50,
+# width=50, padx=7
