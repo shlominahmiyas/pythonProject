@@ -124,6 +124,9 @@ def write_file_2(final_results):
     # output words to screen
     f = open("info2.txt", "a")
     strings = " "
+    if len(final_results) == 0:
+        output.insert(END, "לא מצאתי :( \n")
+
     for found in final_results:
         f.write(found)
         f.write(" ")
