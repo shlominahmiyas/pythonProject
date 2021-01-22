@@ -2,14 +2,15 @@ import os
 from PIL import Image
 import glob
 
-curs = r'C:\Users\User\Desktop\python\master\original'
+where = input("where: ")
+# curs = r'C:\Users\User\Desktop\python\master\original'
 extension = r'\Python_master'
-dst_dir = curs + extension
+dst_dir = where + extension
 os.makedirs(dst_dir, exist_ok=True)
-# stars ='\*'
-# input()
+stars = r'\*'
+globus = where + stars
 
-files = glob.glob(r'C:\Users\User\Desktop\python\master\original\*')
+files = glob.glob(globus)
 
 for f in files:
     if f.endswith((".jpg", ".jpeg", ".JPG")):
